@@ -10,7 +10,7 @@ const StateContext = createContext({
 export const ContextProvider = (props)=>{
     
 
-    const [user,setUser] = useState({});
+    const [user,setUser] = useState({name:''});
     const [token,setToken] = useState(localStorage.getItem('token'));
 
     function setTokenHandler(token){

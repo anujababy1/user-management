@@ -11,9 +11,9 @@ const GuestLayout = ()=>{
     }
 
     return (
-    <>
-    <Outlet/>
-    </>
+        <div id="guestLayout">
+            <Outlet />
+        </div>
     )
 }
 
