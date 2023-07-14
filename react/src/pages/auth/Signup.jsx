@@ -1,6 +1,10 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useContext } from "react";
 import {Link} from 'react-router-dom';
+import axiosClient from "../../axios-client";
+import StateContext from '../../store/ContextProvider';
 const Signup = ()=>{
+
+    const ctx = useContext(StateContext);
 
     const nameRef = useRef();
     const emailRef = useRef();
@@ -9,8 +13,22 @@ const Signup = ()=>{
     const [errors,setError] = useState(null);
 
 
-    const onSubmit = (e)=>{
+    const onSubmit = async (e)=>{
         e.preventDefault();
+        const payload = {
+            name:nameRef.current.value,
+            email:emailRef.current.value,
+            password:passwordRef.current.value,
+            password_confirmation :passwordConfirmationRef.current.value
+        };
+        try {
+            const response = await axiosClient.post('/signup',payload);
+            ctx.setTokenHandler(response.data.token);
+            ctx.setUserHandler(response.data.user);
+        } catch (error) {
+            console.log(error);
+        } 
+        
     }
 
     return (
