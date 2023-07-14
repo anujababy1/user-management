@@ -22,7 +22,7 @@ const Signup = ()=>{
             password_confirmation :passwordConfirmationRef.current.value
         };
         try {
-            const response = await axiosClient.post('/signup',payload);
+            const response = await axiosClient.post('/register',payload);
             ctx.setTokenHandler(response.data.token);
             ctx.setUserHandler(response.data.user);
         } catch (error) {
