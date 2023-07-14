@@ -1,10 +1,22 @@
-import { useContext } from "react";
+import { useContext,useEffect } from "react";
 import { Navigate, Outlet, Link } from "react-router-dom";
 import StateContext from "../../store/ContextProvider";
 import axiosClient from "../../axios-client";
 const DefaultLayout = ()=>{
     
     const ctx = useContext(StateContext); 
+
+    useEffect(()=>{
+        async function getAuthenticateduser(){
+            try {
+                const response = await axiosClient.get('/user');
+                ctx.setUserHandler(response.data);
+            } catch (error) {
+                console.log(error);
+            }
+        }
+        getAuthenticateduser();
+    },[]);
 
     if(!ctx.token){
        return <Navigate to='/login'></Navigate>
