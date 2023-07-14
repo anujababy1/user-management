@@ -1,16 +1,29 @@
-import { useRef,useState } from "react";
+import { useRef,useState ,useContext } from "react";
 import {Link} from 'react-router-dom';
+import StateContext from "../../store/ContextProvider";
+import axiosClient from "../../axios-client";
 const Login = ()=>{
 
-    const [message,setMessage] = useState(null);
+    const [errors,setErrors] = useState(null);
     const emailRef = useRef();
     const passwordRef = useRef();
+    const ctx = useContext(StateContext);
 
-    const onSubmit = (e)=>{
+    const onSubmit = async (e)=>{
         e.preventDefault();
         const payload = {
-            
-        }
+            email:emailRef.current.value,
+            password:passwordRef.current.value
+        };
+        try {
+            const response = await axiosClient.post('/login',payload);
+            ctx.setTokenHandler(response.data.token);
+            ctx.setUserHandler(response.data.user);
+        } catch (error) {
+            if (error.response && error.response.status === 422) {
+                setErrors(error.response.data.message)
+            }
+        } 
     }
 
     return (
@@ -19,9 +32,9 @@ const Login = ()=>{
         <form onSubmit={onSubmit}>
           <h1 className="title">Login into your account</h1>
 
-          {message &&
+          {errors &&
             <div className="alert">
-              <p>{message}</p>
+              <p>{errors}</p>
             </div>
           }
 

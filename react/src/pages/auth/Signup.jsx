@@ -26,7 +26,7 @@ const Signup = ()=>{
             ctx.setTokenHandler(response.data.token);
             ctx.setUserHandler(response.data.user);
         } catch (error) {
-            console.log(error);
+            setError(error.response.data.errors);
         } 
         
     }
