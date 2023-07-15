@@ -1,7 +1,7 @@
 
-## Survey Full Stack Application (React & Laravel)
+## User Management Full Stack Application (React & Laravel)
 
-Authenticated users can create different types of surveys by defining questions and configuring survey settings. They have access to a user-friendly dashboard where they can manage their surveys, view responses, and analyze the results. Public users, who do not need to register or log in, can access the surveys and submit their responses. The application securely stores and associates the responses with the respective surveys.
+User CRUD operations using React and Laravel. 
 
 ## Instructions to follow - Backend
 
